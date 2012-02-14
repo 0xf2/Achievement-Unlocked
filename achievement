@@ -22,7 +22,7 @@ fi
 if [ -x /usr/bin/notify-send ]
 then
   notify-send -i ~/Documents/icons/achievevent_unlocked.png "Achievement Unlocked" "$*"
-elif [ -x /usr/bin/local/growlnotify ]
+elif [ -x /usr/local/bin/growlnotify ]
 then
   growlnotify -I ~/Documents/Icons/achievement_unlocked  -m "$*" Achievement Unlocked
 else
