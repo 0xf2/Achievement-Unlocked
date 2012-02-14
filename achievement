@@ -1,0 +1,30 @@
+#! /bin/bash
+#
+# achievement: publish a humorous "Achievement Unlocked" popup window 
+# Released under the MIT license.
+# 
+# (c) 2012 by Federico Lucifredi
+# 
+# HISTORY:
+# 1.0 Initial release
+# 1.1 Added Growl support
+#
+# TODO:
+# - embed icon into script
+#
+
+if [ ! -n "$1" ]
+then
+  echo "Usage: `basename $0` message"
+  exit 1
+fi
+
+if [ -x /usr/bin/notify-send ]
+then
+  notify-send -i ~/Documents/icons/achievevent_unlocked.png "Achievement Unlocked" "$*"
+elif [ -x /usr/bin/local/growlnotify ]
+then
+  growlnotify -I ~/Documents/Icons/achievement_unlocked  -m "$*" Achievement Unlocked
+else
+  echo "notification infrastructure not installed"
+fi
