@@ -1,5 +1,9 @@
 Publish a humorous "Achievement Unlocked" popup window with the passed argument.
 
+Example (featuring the quote that started all this):
+
+./achievement "Asploded Jono's Brain"
+
 Released under the MIT license.
 
 (c) 2012 Federico Lucifredi <flucifredi@acm.org>
