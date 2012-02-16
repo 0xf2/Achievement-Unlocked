@@ -17,7 +17,7 @@ function untar_payload()
 {
 	match=$(grep --text --line-number '^PAYLOAD:$' $0 | cut -d ':' -f 1)
 	payload_start=$((match + 1))
-	tail -n +$payload_start $0 | uudecode | tar -P -zxvf - > /dev/null
+	tail -n +$payload_start $0 | uudecode -p | tar -P -zxvf - &> /dev/null
 }
 
 if [ ! -n "$1" ]
@@ -36,7 +36,7 @@ then
   notify-send -i /tmp/achievement_unlocked.png "Achievement Unlocked" "$*"
 elif [ -x /usr/local/bin/growlnotify ]
 then
-  growlnotify -I /tmp/achievement_unlocked.png  -m "$*" Achievement Unlocked
+  growlnotify --image /tmp/achievement_unlocked.png  -m "$*" Achievement Unlocked
 else
   echo "notification infrastructure not installed"
   exit 1
