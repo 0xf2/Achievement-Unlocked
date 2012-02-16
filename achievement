@@ -13,11 +13,22 @@
 # TODO:
 #
 
+UNAME=`uname`
+
 function untar_payload()
 {
-	match=$(grep --text --line-number '^PAYLOAD:$' $0 | cut -d ':' -f 1)
-	payload_start=$((match + 1))
-	tail -n +$payload_start $0 | uudecode -p | tar -P -zxvf - &> /dev/null
+	MATCH=$(grep --text --line-number '^PAYLOAD:$' $0 | cut -d ':' -f 1)
+	PAYLOAD_START=$((MATCH + 1))
+
+	if [ "$UNAME" == "Darwin" ]
+	then
+	  tail -n +$PAYLOAD_START $0 | uudecode -p | tar -P -zxvf - &> /dev/null
+	elif [ "$UNAME" == "Linux" ]
+	then
+	  tail -n +$PAYLOAD_START $0 | uudecode | tar -P -zxvf - &> /dev/null
+	else
+	  echo "Unknown host platform. Get a real OS!"
+	fi
 }
 
 if [ ! -n "$1" ]
